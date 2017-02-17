@@ -23,31 +23,32 @@ class PlaylistGenerator:
         i = 0
 
         for rom in files:
-            if not first:
-                new_playlist_file.write("\n")
-            else:
-                first = False
+            if not os.path.isdir(os.path.join(target_dir, rom)):
+                if not first:
+                    new_playlist_file.write("\n")
+                else:
+                    first = False
 
-            # full path
-            new_playlist_file.write(os.path.join(target_dir, rom) + "\n")
-            # name
-            new_playlist_file.write(os.path.splitext(os.path.basename(rom))[0] + "\n")
-            # core's path
-            if self.core_file is not None:
-                new_playlist_file.write(self.core_file + "\n")
-            else:
+                # full path
+                new_playlist_file.write(os.path.join(target_dir, rom) + "\n")
+                # name
+                new_playlist_file.write(os.path.splitext(os.path.basename(rom))[0] + "\n")
+                # core's path
+                if self.core_file is not None:
+                    new_playlist_file.write(self.core_file + "\n")
+                else:
+                    new_playlist_file.write("DETECT" + "\n")
+                # core's name
+                if self.core_name is not None:
+                    new_playlist_file.write(self.core_name + "\n")
+                else:
+                    new_playlist_file.write("DETECT" + "\n")
+                # crc placeholder
                 new_playlist_file.write("DETECT" + "\n")
-            # core's name
-            if self.core_name is not None:
-                new_playlist_file.write(self.core_name + "\n")
-            else:
-                new_playlist_file.write("DETECT" + "\n")
-            # crc placeholder
-            new_playlist_file.write("DETECT" + "\n")
-            # playlist's name
-            new_playlist_file.write(self.picked_system + ".lpl")
+                # playlist's name
+                new_playlist_file.write(self.picked_system + ".lpl")
 
-            i += 1
+                i += 1
 
         new_playlist_file.close()
         print("Found: {} ROMS for {}".format(i, self.picked_system))
