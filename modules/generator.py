@@ -2,24 +2,13 @@ import os
 
 
 class PlaylistGenerator:
-    picked_system = None
-    roms_dir = None
-    core_file = None
-    core_name = None
 
-    def __init__(self, default_playlists_location):
+    def __init__(self, default_playlists_location, roms_dir, picked_system,
+                 core_file, core_name):
         self.default_playlists_location = default_playlists_location
-
-    def set_system(self, picked_system):
-        self.picked_system = picked_system
-
-    def set_dir(self, roms_dir):
         self.roms_dir = roms_dir
-
-    def set_core_file(self, core_file):
+        self.picked_system = picked_system
         self.core_file = core_file
-
-    def set_core_name(self, core_name):
         self.core_name = core_name
 
     def generate_playlist_file(self, target_dir):
@@ -67,12 +56,9 @@ class PlaylistGenerator:
         self.generate_playlist_file(self.roms_dir)
 
 
-def fire_generator(playlists_location, roms_dir, picked_system, selected_core, cores_name):
-    playlist_generator = PlaylistGenerator(playlists_location)
-    playlist_generator.set_dir(roms_dir)
-    playlist_generator.set_system(picked_system)
-    playlist_generator.set_core_file(selected_core)
-    playlist_generator.set_core_name(cores_name)
+def fire_generator(playlists_location, roms_dir, picked_system, core_file, core_name):
+    playlist_generator = PlaylistGenerator(playlists_location, roms_dir, picked_system,
+                                           core_file, core_name)
     playlist_generator.start_generator()
 
 
